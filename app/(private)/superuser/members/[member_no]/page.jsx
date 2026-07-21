@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
-import { useFetchMember } from "@/hooks/members/actions";
+import { useFetchMemberDetail } from "@/hooks/members/actions";
 import LoadingSpinner from "@/components/general/LoadingSpinner";
 import UpdateMemberRole from "@/forms/members/UpdateMemberRole";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 
 export default function SuperuserMemberDetail() {
   const { member_no } = useParams();
-  const { data: member, isLoading, refetch } = useFetchMember(member_no);
+  const { data: member, isLoading, refetch } = useFetchMemberDetail(member_no);
   const [roleModal, setRoleModal] = useState(false);
 
   if (isLoading) return <LoadingSpinner />;
