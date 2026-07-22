@@ -192,7 +192,10 @@ function SavingsTable({ savings, isLoading, route }) {
               >
                 Previous
               </Button>
-              {getPageNumbers(currentPage, totalPages).map((page, index) => page === "..." ? <span key={`ellipsis-${index}`} className="px-2 py-1 text-slate-400 text-sm select-none">...</span> : (((page) => (
+              {getPageNumbers(currentPage, totalPages).map((page, index) =>
+                page === "..." ? (
+                  <span key={`ellipsis-${index}`} className="px-2 py-1 text-slate-400 text-sm select-none">...</span>
+                ) : (
                   <Button
                     key={page}
                     onClick={() => handlePageChange(page)}
@@ -205,7 +208,8 @@ function SavingsTable({ savings, isLoading, route }) {
                   >
                     {page}
                   </Button>
-                ),)(page)))}
+                )
+              )}
               <Button
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}

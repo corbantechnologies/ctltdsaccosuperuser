@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { useFetchMemberDetail } from "@/hooks/members/actions";
 import LoadingSpinner from "@/components/general/LoadingSpinner";
 import UpdateMemberRole from "@/forms/members/UpdateMemberRole";
@@ -19,8 +20,11 @@ export default function SuperuserMemberDetail() {
   
   if (!member) return <div className="p-8 text-center text-slate-500">Member not found</div>;
 
+  const queryClient = useQueryClient();
   const handleRefetchAll = () => {
-    window.location.reload();
+    refetch();
+    queryClient.invalidateQueries({ queryKey: ["member", member_no] });
+    queryClient.invalidateQueries({ queryKey: ["members"] });
   };
 
   const activeRoles = [];
