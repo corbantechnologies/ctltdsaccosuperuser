@@ -69,7 +69,22 @@ function CreateLoanProduct({ isOpen, onClose, refetchLoanTypes }) {
           onSubmit={async (values) => {
             try {
               setLoading(true);
-              await createLoanProduct(values, token);
+              const payload = { ...values };
+              const optionalNumeric = [
+                "min_principal_amount",
+                "max_principal_amount",
+                "min_term_months",
+                "max_term_months",
+                "first_time_max_principal",
+              ];
+              optionalNumeric.forEach((field) => {
+                if (payload[field] === "" || payload[field] === undefined) {
+                  payload[field] = null;
+                } else if (payload[field] !== null) {
+                  payload[field] = Number(payload[field]);
+                }
+              });
+              await createLoanProduct(payload, token);
               toast?.success("Loan product created successfully!");
               onClose();
               refetchLoanTypes();
