@@ -38,8 +38,8 @@ function CreateMember({ closeModal, openModal }) {
             first_name: "",
             last_name: "",
             email: "",
-            employer: "", // a select field with options: Tamarind Management Limited, and others. If Tamarind Management Limited, payroll_no is a must
-            payroll_no: '', // optional
+            employer: "",
+            payroll_no: '',
             phone: "",
             gender: "",
             member_no: "",
@@ -63,7 +63,7 @@ function CreateMember({ closeModal, openModal }) {
             }
           }}
         >
-          {({ values }) => (
+          {({ values, setFieldValue }) => (
             <Form className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
