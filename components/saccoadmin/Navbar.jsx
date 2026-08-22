@@ -15,7 +15,7 @@ import {
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import React, { useState, useEffect, createContext, useContext } from "react";
-import { useTheme } from "next-themes";
+
 
 // ─── Sidebar Context ──────────────────────────────────────────────────────────
 export const SuperuserSidebarContext = createContext({ isCollapsed: false, toggle: () => {} });
@@ -46,24 +46,7 @@ export function SuperuserSidebarProvider({ children }) {
   );
 }
 
-// ─── Dark Mode Toggle ─────────────────────────────────────────────────────────
-function DarkModeToggle() {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return <div className="w-9 h-9" />;
-  return (
-    <Button
-      variant="ghost"
-      size="icon"
-      className="text-white hover:bg-white/10"
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      aria-label="Toggle dark mode"
-    >
-      {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-    </Button>
-  );
-}
+// --- Removed Dark Mode Toggle ---
 
 const MENU_LINKS = [
   { label: "Dashboard", href: "/sacco-admin/dashboard" },
@@ -249,7 +232,7 @@ export default function SaccoAdminNavbar() {
             </span>
           </Link>
         </div>
-        <DarkModeToggle />
+        
       </header>
 
       <div
