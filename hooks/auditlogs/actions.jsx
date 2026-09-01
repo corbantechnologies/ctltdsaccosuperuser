@@ -4,11 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosAuth from "../authentication/useAxiosAuth";
 import { getAuditLogs } from "@/services/auditlogs";
 
-export function useFetchAuditLogs() {
+export function useFetchAuditLogs(params = {}) {
   const token = useAxiosAuth();
 
   return useQuery({
-    queryKey: ["auditlogs"],
-    queryFn: () => getAuditLogs(token),
+    queryKey: ["auditlogs", params],
+    queryFn: () => getAuditLogs(token, params),
   });
 }

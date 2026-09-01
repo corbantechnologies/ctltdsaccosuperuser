@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useFetchAuditLogs } from "@/hooks/auditlogs/actions";
 import { format } from "date-fns";
 import {
@@ -18,8 +18,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 export default function AuditLogsPage() {
-  const { data: logs, isLoading, error } = useFetchAuditLogs();
-
   const [searchTerm, setSearchTerm] = useState("");
   const [userSearch, setUserSearch] = useState("");
   const [specificDate, setSpecificDate] = useState("");
@@ -29,49 +27,26 @@ export default function AuditLogsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 50;
 
-  if (isLoading) return (
-    <div className="flex justify-center items-center min-h-[50vh]">
-      <Loader2 className="h-8 w-8 animate-spin text-slate-500" />
-    </div>
-  );
-  if (error) return <div className="text-red-500">Error loading audit logs.</div>;
-
-  // Filter logs
-  const filteredLogs = logs?.filter((log) => {
-    // Text search (action, module, description)
-    const textToSearch = `${log.action} ${log.module} ${log.description}`.toLowerCase();
-    const matchesText = textToSearch.includes(searchTerm.toLowerCase());
-
-    // User search
-    const userToSearch = `${log.user_name} ${log.user_member_no}`.toLowerCase();
-    const matchesUser = userToSearch.includes(userSearch.toLowerCase());
-
-    // Date filter
-    let matchesDate = true;
-    const logDate = new Date(log.created_at).getTime();
+  const params = useMemo(() => {
+    const query = { page: currentPage };
+    if (searchTerm) query.search = searchTerm;
+    if (userSearch) query.user = userSearch;
     
     if (specificDate) {
-      const startOfSpecific = new Date(specificDate).setHours(0, 0, 0, 0);
-      const endOfSpecific = new Date(specificDate).setHours(23, 59, 59, 999);
-      matchesDate = matchesDate && (logDate >= startOfSpecific && logDate <= endOfSpecific);
+        query.start_date = specificDate;
+        query.end_date = specificDate;
     } else {
-      if (startDate) {
-        matchesDate = matchesDate && logDate >= new Date(startDate).setHours(0, 0, 0, 0);
-      }
-      if (endDate) {
-        matchesDate = matchesDate && logDate <= new Date(endDate).setHours(23, 59, 59, 999);
-      }
+        if (startDate) query.start_date = startDate;
+        if (endDate) query.end_date = endDate;
     }
+    return query;
+  }, [currentPage, searchTerm, userSearch, specificDate, startDate, endDate]);
 
-    return matchesText && matchesUser && matchesDate;
-  }) || [];
+  const { data: logsData, isLoading, error } = useFetchAuditLogs(params);
 
-  // Pagination logic
-  const totalPages = Math.ceil(filteredLogs.length / itemsPerPage) || 1;
-  const paginatedLogs = filteredLogs.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const paginatedLogs = logsData?.results || [];
+  const totalCount = logsData?.count || 0;
+  const totalPages = Math.ceil(totalCount / itemsPerPage) || 1;
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
@@ -86,6 +61,13 @@ export default function AuditLogsPage() {
     if (action.includes("500") || action.includes("ERROR")) return "bg-red-100 text-red-800 border-red-200";
     return "bg-blue-100 text-blue-800 border-blue-200";
   };
+
+  if (isLoading) return (
+    <div className="flex justify-center items-center min-h-[50vh]">
+      <Loader2 className="h-8 w-8 animate-spin text-slate-500" />
+    </div>
+  );
+  if (error) return <div className="text-red-500">Error loading audit logs.</div>;
 
   return (
     <div className="space-y-6">
@@ -233,13 +215,11 @@ export default function AuditLogsPage() {
         </div>
 
         {/* Pagination Controls */}
-        {filteredLogs.length > 0 && (
+        {totalCount > 0 && (
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 border-t border-gray-200">
-            <div className="text-sm text-gray-500">
-              Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
-              {Math.min(currentPage * itemsPerPage, filteredLogs.length)}{" "}
-              of {filteredLogs.length} logs
-            </div>
+            <p className="text-sm text-gray-600 font-medium">
+              Showing <span className="text-gray-900">{paginatedLogs.length}</span> of <span className="text-gray-900">{totalCount}</span> logs
+            </p>
             <div className="flex gap-2 flex-wrap items-center">
               <Button
                 variant="outline"
