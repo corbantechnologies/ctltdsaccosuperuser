@@ -23,6 +23,13 @@ const MENU_LINKS = [
       { label: "System Logs", href: "/superuser/logs" },
     ],
   },
+  {
+    label: "System Health",
+    href: "/superuser/reference-integrity",
+    children: [
+      { label: "Reference Integrity", href: "/superuser/reference-integrity" },
+    ],
+  },
 ];
 
 const NavItem = ({ link, setIsMenuOpen }) => {
