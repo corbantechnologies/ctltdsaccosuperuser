@@ -44,7 +44,14 @@ export default function ReferenceIntegrityPage() {
   const [fixModalOpen, setFixModalOpen] = useState(false);
   const [recentFixes, setRecentFixes] = useState([]);
 
+  // useAxiosAuth() returns a new object on every render, so depend on the
+  // header string instead; otherwise this effect re-runs (and re-requests the
+  // report) after every render. Wait until the session has a token.
+  const authHeader = token?.headers?.Authorization || "";
+  const hasToken = !/^Token\s*(undefined|null)?\s*$/.test(authHeader);
+
   const fetchReport = useCallback(async () => {
+    if (!hasToken) return;
     try {
       setLoading(true);
       const data = await getReferenceIntegrity(token);
@@ -55,7 +62,8 @@ export default function ReferenceIntegrityPage() {
     } finally {
       setLoading(false);
     }
-  }, [token]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authHeader, hasToken]);
 
   useEffect(() => {
     fetchReport();
