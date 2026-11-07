@@ -61,3 +61,20 @@ export const apiMultipartActions = withSessionHandling(
     withCredentials: true,
   })
 );
+
+// Fetch every page of a paginated list.
+export async function getAllPages(url, token, params = {}) {
+  const pageSize = 1000;
+  const all = [];
+  for (let page = 1; page < 200; page++) {
+    const response = await apiActions.get(url, {
+      ...token,
+      params: { ...params, page, page_size: pageSize },
+    });
+    const data = response?.data;
+    const rows = Array.isArray(data) ? data : data?.results || [];
+    all.push(...rows);
+    if (Array.isArray(data) || !data?.next || rows.length < pageSize) break;
+  }
+  return all;
+}

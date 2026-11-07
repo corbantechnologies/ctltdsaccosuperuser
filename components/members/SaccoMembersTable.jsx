@@ -26,7 +26,7 @@ const getPageNumbers = (currentPage, totalPages) => {
 function SaccoMembersTable({ members }) {
   const router = useRouter();
   const pathname = usePathname();
-  const baseRoute = pathname?.includes("/superuser") ? "/superuser/members" : "/sacco-admin/members";
+  const baseRoute = "/superuser/members";
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);

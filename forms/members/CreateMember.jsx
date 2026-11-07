@@ -52,11 +52,7 @@ function CreateMember({ closeModal, openModal }) {
               toast?.success("Member created successfully!");
               closeModal();
               // refetchMembers();
-              if (pathname.includes('/superuser')) {
-                router.push(`/superuser/members/${response?.data?.member_no}`);
-              } else {
-                router.push(`/sacco-admin/members/${response?.data?.member_no}`);
-              }
+              router.push(`/superuser/members/${response?.data?.member_no}`);
             } catch (error) {
               toast?.error("Failed to create member!");
             } finally {

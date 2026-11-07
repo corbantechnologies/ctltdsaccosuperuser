@@ -24,12 +24,13 @@ const MENU_LINKS = [
     ],
   },
   {
-    label: "System Health",
+    label: "Tools",
     href: "/superuser/reference-integrity",
     children: [
       { label: "Reference Integrity", href: "/superuser/reference-integrity" },
     ],
   },
+  { label: "Help & Guide", href: "/superuser/guide" },
 ];
 
 const NavItem = ({ link, setIsMenuOpen }) => {
