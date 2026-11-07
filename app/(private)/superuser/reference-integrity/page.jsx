@@ -149,7 +149,7 @@ export default function ReferenceIntegrityPage() {
             size="sm"
             onClick={() => setFixModalOpen(true)}
             disabled={loading || fixing || isHealthy}
-            className="flex-1 sm:flex-initial h-9 text-xs bg-primary hover:bg-[#022007] text-white shadow-sm font-medium"
+            className="flex-1 sm:flex-initial h-9 text-xs bg-primary hover:bg-[var(--primary-hover)] text-white shadow-sm font-medium"
           >
             <Wrench className="mr-1.5 h-3.5 w-3.5" />
             Resolve Collisions
@@ -409,7 +409,7 @@ export default function ReferenceIntegrityPage() {
               size="sm"
               onClick={handleFix}
               disabled={fixing}
-              className="bg-primary hover:bg-[#022007] text-white text-xs h-9 shadow-sm"
+              className="bg-primary hover:bg-[var(--primary-hover)] text-white text-xs h-9 shadow-sm"
             >
               {fixing ? (
                 <>

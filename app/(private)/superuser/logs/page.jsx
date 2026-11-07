@@ -243,7 +243,7 @@ export default function AuditLogsPage() {
                       onClick={() => handlePageChange(page)}
                       className={
                         currentPage === page
-                          ? "bg-[#ea1315] text-white hover:bg-[#c71012]"
+                          ? "bg-[var(--accent)] text-white hover:bg-[var(--accent-hover)]"
                           : "border-black text-black hover:bg-gray-100"
                       }
                     >
