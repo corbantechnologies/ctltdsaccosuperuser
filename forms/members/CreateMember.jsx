@@ -39,8 +39,7 @@ function CreateMember({ closeModal, openModal }) {
             middle_name: "",
             last_name: "",
             email: "",
-            employer: "",
-            payroll_no: '',
+            payroll_number: "",
             phone: "",
             gender: "",
             member_no: "",
@@ -152,39 +151,20 @@ function CreateMember({ closeModal, openModal }) {
 
                 <div className="space-y-2">
                   <Label
-                    htmlFor="employer"
+                    htmlFor="payroll_number"
                     className="text-base text-black font-medium"
                   >
-                    Employer
+                    Payroll Number (Optional)
                   </Label>
                   <Field
                     as={Input}
                     type="text"
-                    name="employer"
-                    id="employer"
-                    placeholder="Enter employer name"
+                    name="payroll_number"
+                    id="payroll_number"
+                    placeholder="e.g. 12345"
                     className="border-black rounded text-base py-2"
                   />
                 </div>
-
-                {Boolean(values.employer && values.employer.trim() !== "") && (
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="payroll_no"
-                      className="text-base text-black font-medium"
-                    >
-                      Payroll Number
-                    </Label>
-                    <Field
-                      as={Input}
-                      type="text"
-                      name="payroll_no"
-                      id="payroll_no"
-                      placeholder="e.g. 12345"
-                      className="border-black rounded text-base py-2"
-                    />
-                  </div>
-                )}
 
                 <div className="space-y-2">
                   <Label
