@@ -1,6 +1,6 @@
 "use client";
 
-import { apiActions, apiMultipartActions } from "@/tools/axios";
+import { apiActions, apiMultipartActions, getAllPages } from "@/tools/axios";
 
 export const signUpSaccoAdmin = async (values) => {
   const response = await apiActions?.post(
@@ -32,10 +32,7 @@ export const addMember = async (values, token) => {
 };
 
 // View all members
-export const getMembers = async (token) => {
-  const response = await apiActions?.get("/api/v1/auth/", token);
-  return response?.data?.results || [];
-};
+export const getMembers = async (token) => getAllPages("/api/v1/auth/", token);
 
 // View member details
 export const getMemberDetail = async (member_no, token) => {

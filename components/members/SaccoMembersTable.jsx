@@ -26,7 +26,7 @@ const getPageNumbers = (currentPage, totalPages) => {
 function SaccoMembersTable({ members }) {
   const router = useRouter();
   const pathname = usePathname();
-  const baseRoute = pathname?.includes("/superuser") ? "/superuser/members" : "/sacco-admin/members";
+  const baseRoute = "/superuser/members";
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
@@ -168,7 +168,7 @@ function SaccoMembersTable({ members }) {
                               `${baseRoute}/${member?.member_no}`
                             );
                           }}
-                          className="bg-[#ea1315] hover:bg-[#c71012] text-white"
+                          className="bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white"
                         >
                           Manage
                         </Button>
@@ -204,7 +204,7 @@ function SaccoMembersTable({ members }) {
                       onClick={() => handlePageChange(page)}
                       className={
                         currentPage === page
-                          ? "bg-[#ea1315] text-white hover:bg-[#c71012]"
+                          ? "bg-[var(--accent)] text-white hover:bg-[var(--accent-hover)]"
                           : "border-black text-black hover:bg-gray-100"
                       }
                     >

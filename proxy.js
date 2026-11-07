@@ -4,5 +4,5 @@ export const proxy = middleware;
 export default middleware;
 
 export const config = {
-    matcher: ["/sacco-admin(.*)", "/member(.*)"],
+    matcher: ["/superuser(.*)"],
 };

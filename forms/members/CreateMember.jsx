@@ -52,11 +52,7 @@ function CreateMember({ closeModal, openModal }) {
               toast?.success("Member created successfully!");
               closeModal();
               // refetchMembers();
-              if (pathname.includes('/superuser')) {
-                router.push(`/superuser/members/${response?.data?.member_no}`);
-              } else {
-                router.push(`/sacco-admin/members/${response?.data?.member_no}`);
-              }
+              router.push(`/superuser/members/${response?.data?.member_no}`);
             } catch (error) {
               toast?.error("Failed to create member!");
             } finally {
@@ -236,7 +232,7 @@ function CreateMember({ closeModal, openModal }) {
                 </Button>
                 <Button
                   type="submit"
-                  className="bg-[#ea1315] hover:bg-[#c71012] text-white text-base py-2 px-4 w-full sm:w-auto"
+                  className="bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white text-base py-2 px-4 w-full sm:w-auto"
                   disabled={loading}
                 >
                   {loading ? "Creating..." : "Create Member"}

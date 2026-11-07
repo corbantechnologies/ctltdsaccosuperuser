@@ -126,6 +126,10 @@ export default function ReferenceIntegrityPage() {
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Superuser audit tool: scans all transactions, identifies collision hazards, and guarantees unique accounting references.
           </p>
+          <p className="mt-2 flex items-start gap-1.5 rounded border border-amber-200 bg-amber-50 px-2.5 py-1.5 text-xs text-amber-900">
+            <AlertTriangle className="h-3.5 w-3.5 shrink-0 mt-0.5" />
+            Resolve Collisions changes records directly. Scan first, review the list, and take a database backup before resolving.
+          </p>
         </div>
 
         {/* Action Controls */}
@@ -145,7 +149,7 @@ export default function ReferenceIntegrityPage() {
             size="sm"
             onClick={() => setFixModalOpen(true)}
             disabled={loading || fixing || isHealthy}
-            className="flex-1 sm:flex-initial h-9 text-xs bg-primary hover:bg-[#022007] text-white shadow-sm font-medium"
+            className="flex-1 sm:flex-initial h-9 text-xs bg-primary hover:bg-[var(--primary-hover)] text-white shadow-sm font-medium"
           >
             <Wrench className="mr-1.5 h-3.5 w-3.5" />
             Resolve Collisions
@@ -405,7 +409,7 @@ export default function ReferenceIntegrityPage() {
               size="sm"
               onClick={handleFix}
               disabled={fixing}
-              className="bg-primary hover:bg-[#022007] text-white text-xs h-9 shadow-sm"
+              className="bg-primary hover:bg-[var(--primary-hover)] text-white text-xs h-9 shadow-sm"
             >
               {fixing ? (
                 <>
