@@ -30,6 +30,7 @@ const MENU_LINKS = [
       { label: "Reference Integrity", href: "/superuser/reference-integrity" },
     ],
   },
+  { label: "SACCO Settings", href: "/superuser/settings" },
   { label: "Help & Guide", href: "/superuser/guide" },
 ];
 
